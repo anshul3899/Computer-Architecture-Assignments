@@ -7,7 +7,6 @@
 		add r5, r4, r2
 		div r5, r5, 8
 		mul r5, r5, 4
-		@add r5, r5, r2	
 		sub sp, sp, 16
 		st r2, [sp]
 		st r4, 4[sp]
@@ -42,21 +41,18 @@
 .merge: 	
 	@ ADD YOUR CODE HERE
 	@.print r2, r4, r5
-
 	add r6, r3, 4
-	@mov r6, r12
 	add r7, r5, 4 
-	@add r12, r6, r4 
-	mov r13, r2		@k
+	mov r13, r2	
 	mov r9, 0
 
-	.loop3: 
+	.loop1: 
 		cmp r13, r5
-		bgt .loop4
+		bgt .loop2
 		cmp r7, r4
-		bgt .loop5
-		ld r10, [r13] 	@L[i]  
-		ld r11, [r7]  	@R[j]
+		bgt .loop3
+		ld r10, [r13] 
+		ld r11, [r7]  
 		cmp r10, r11  
 		bgt .elss
 		st r10, [r6]
@@ -69,9 +65,9 @@
 		.iff:
 			add r6, r6, 4
 		
-		b .loop3
+		b .loop1
 
-	.loop4:
+	.loop2:
 		cmp r7, r4
 		bgt .go
 		ld r10, [r7]
@@ -79,11 +75,11 @@
 		add r6, r6, 4
 		add r7, r7, 4
 		cmp r4, r7
-		bgt .loop4
-		beq .loop4
+		bgt .loop2
+		beq .loop2
 		b .go
 
-	.loop5:
+	.loop3:
 		cmp r13, r5
 		bgt .go
 		ld r10, [r13]
@@ -91,21 +87,21 @@
 		add r6, r6, 4
 		add r13, r13, 4
 		cmp r5, r13
-		bgt .loop5
-		beq .loop5
+		bgt .loop3
+		beq .loop3
 
 	.go:
 		add r6, r3, 4
 		mov r13, r2
 
-	.loop6:
+	.loop4:
 		ld r10, [r6]
 		st r10, [r13]
 		add r13, r13, 4
 		add r6, r6, 4  
 		cmp r4, r13
-		bgt .loop6
-		beq .loop6
+		bgt .loop4
+		beq .loop4
 
 	ret
 

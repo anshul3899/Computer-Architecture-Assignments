@@ -1,39 +1,34 @@
 .bubblesort:
 	@ ADD YOUR CODE HERE
-	mov r4, -1
-	sub r3, r3, 1
+	mov r5, 0
+	sub r4, r4, 4
 	.loop1:
-		add r4, r4, 1
-		@.print r4
-		cmp r4, r3
+		sub r6, r4, r5
+		mov r7, 0
+		@.print r5
+		add r5, r5, 4
+		cmp r4, r5
+		bgt .loop2
 		beq .return
-		mov r6, 0	
-		sub r6, r3 ,r4
-		sub r6, r6 ,1
-		mov r5, -1
-		mov r10, r2
+		b .return
 		.loop2:
-			add r5, r5, 1
-			@.print r5
-			cmp r5, r6
+			add r8, r7, 4
+			ld r9, [r7]
+			ld r10, [r8]
+			cmp r9, r10
+			bgt .cont
+			beq .iff
+			b .iff
+			.cont: 
+				st r9, [r8]
+				st r10, [r7]
+			.iff:
+				nop
+			add r7, r7, 4
+			cmp r6, r7
+			bgt .loop2
 			beq .loop1
-			ld r7, [r10]
-			add r10, r10, 4
-			ld r8, [r10]
-			
-			cmp r7, r8
-			bgt .swap
-			b .loop2
-	.swap:
-		@.print r7, r8
-		mov r9, r8
-		mov r8, r7
-		mov r7, r9
-		st r8, [r10]
-		sub r10, r10, 4
-		st r7, [r10]
-		add r10, r10, 4
-		b .loop2
+			b .loop1
 	.return:
 		ret
 .main:
@@ -60,7 +55,7 @@
 	mov r3, 6	@ REPLACE 6 WITH N, where, N is the number of numbers being sorted
 	
 	@ ADD YOUR CODE HERE
-	
+	mul r4, r3, 4
 	call .bubblesort
 	
 	@ ADD YOUR CODE HERE
