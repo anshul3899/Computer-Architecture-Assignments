@@ -1,5 +1,72 @@
-.quicksort:
+ .quicksort:
 		@ ADD YOUR CODE HERE
+		cmp r3, r2 
+		bgt .continue
+		b .return
+		.continue:
+			sub sp, sp, 4
+			st ra, [sp]
+			call .partition
+			ld ra, [sp]
+			add sp, sp, 4
+			sub sp, sp, 16
+			st r2, [sp]
+			st r3, 4[sp]
+			st r5, 8[sp]
+			st ra, 12[sp]
+			sub r5, r5, 4
+			mov r3, r5
+			call .quicksort
+			ld r2, [sp]
+			ld r3, 4[sp]
+			ld r5, 8[sp]
+			ld ra, 12[sp]
+			add sp, sp, 16
+			sub sp, sp, 16
+			st r2, [sp]
+			st r3, 4[sp]
+			st r5, 8[sp]
+			st ra, 12[sp]
+			add r5, r5, 4
+			mov r2, r5
+			call .quicksort
+			ld r2, [sp]
+			ld r3, 4[sp]
+			ld r5, 8[sp]
+			ld ra, 12[sp]
+			add sp, sp, 16
+			b .return
+		.return:
+			ret
+ .partition:
+	ld r6, [r3]   	@ pivot
+	sub r5, r2, 4	@ i
+	mov r7, r2		@ j
+	.loop:
+		ld r8, [r7]
+		cmp r6, r8
+		bgt .cont
+		b .iff
+		.cont:
+			add r5, r5, 4
+			ld r11, [r5]
+			ld r10, [r7]
+			st r11, [r7]
+			st r10, [r5]
+		.iff:
+			nop
+		add r7, r7, 4
+		cmp r3, r7
+		bgt .loop
+		b .out
+	.out:
+		add r9, r5, 4
+		ld r11, [r9]
+		ld r10, [r3]
+		st r11, [r3]
+		st r10, [r9]
+		add r5, r5, 4
+	ret
 
  .main:
 

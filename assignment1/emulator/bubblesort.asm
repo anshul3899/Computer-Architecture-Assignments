@@ -79,4 +79,3 @@
 	ld r1, 20[r0]
 	.print r1
 	@ EXTEND ON SIMILAR LINES FOR MORE NUMBERS
-
